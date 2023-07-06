@@ -25,6 +25,9 @@ const searchContent = () => {
     })
     btn2.addEventListener('click', () => {
         count--
+        if(count < 1) {
+            count = 1
+        }   
         fetch(`${api}/${count}`)
             .then(response => response.json())
             .then(data => {
