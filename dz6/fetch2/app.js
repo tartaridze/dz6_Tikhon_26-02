@@ -1,22 +1,18 @@
 const contentBlock = document.querySelector('.block')
-const btn = document.querySelector('.btn')
 
 const api = "https://jsonplaceholder.typicode.com/photos"
 
-let count = 0
-const searchContent = () => {
-    btn.addEventListener('click', () => {
-        count++
-        console.log(count)
-        if (count > 20){
-            count = 0
-        }
-        fetch(`${api}/${count}`)
+const limit = 20
+
+        fetch(`${api}?_limit=${limit}`)
             .then(response => response.json())
-            .then(data => {
-                contentBlock.innerHTML = `
-                    <img src="${data.url}" alt="photo">    `
+            .then(photos => {
+                photos.forEach(photo => {
+                    const photoElement = document.createElement('img')
+                    photoElement.src = photo.url
+                    photoElement.alt = photo.title
+                    contentBlock.appendChild(photoElement)
+
+
+                })
             })
-    })
-}
-searchContent()
